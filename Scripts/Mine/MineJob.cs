@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Collections;
 using Unity.Jobs;
 
-public class MineJob : IJobParallelFor
+public struct MineJob : IJobParallelFor
 {
     public NativeArray<Vector3> Vertices;
     public float Force;
