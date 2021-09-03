@@ -21,8 +21,9 @@ public struct PerlinGenerationJob : IJobParallelFor
         float height = 0;
         for (int j = 0; j < Octave; j++)
         {
-            height += PerlinNoise.Perlin3D (Vertices [index] * Scale * Mathf.Pow (2,  j) + StartCoord)  / (j + 1);
-            max += 1/(j + 1);
+            //height += PerlinNoise.Perlin3D (Vertices [index] * Scale * Mathf.Pow (2,  j) + StartCoord)  / (j + 1);
+            height += (Vertices [index] * Scale * Mathf.Pow (2,  j) + StartCoord).Perlin () / Mathf.Pow (2,  j);
+            max += 1/Mathf.Pow (2,  j);
         }
         height /= max;
         height = Mathf.Pow (height * Force, Power);

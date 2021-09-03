@@ -19,9 +19,13 @@ public class TerrainGeneration : MonoBehaviour
     private int octave;
     [SerializeField]
     private float multiplier = 1;
+    [SerializeField]
+    private Transform player;
 
     void Start () 
     {
+        PerlinNoise3D.SeedGenerator (42);
+        PerlinNoise3D.NoiseGenerator (256);
         mc = this.GetComponent <MeshCollider> ();
         tr = this.GetComponent <Transform> ();
         mesh = this.GetComponent <MeshFilter> ().mesh;
@@ -58,6 +62,10 @@ public class TerrainGeneration : MonoBehaviour
         mesh.RecalculateBounds (); 
         mesh.RecalculateNormals ();
         mc.sharedMesh = mesh;
+        if (player != null)
+        {
+            player.position = vertices [0]*100 + vertices [0].normalized * 100;
+        }
     }
         
 }

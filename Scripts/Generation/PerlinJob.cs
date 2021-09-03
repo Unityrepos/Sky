@@ -16,7 +16,7 @@ public struct PerlinJob : IJobParallelFor
     public void Execute (int index)
     {
         float height = 0;
-        height += PerlinNoise.Perlin3D (Vertices [index] * Scale + StartCoord);
+        //height += PerlinNoise.Perlin3D (Vertices [index] * Scale + StartCoord);
         Heights[index] = height;
         var p = Vertices [index].normalized;
         if (height > .45f)

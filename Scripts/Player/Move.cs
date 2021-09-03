@@ -11,6 +11,7 @@ public class Move : MonoBehaviour
     public float speed;
     Vector2 velocity;
     bool trigger;
+    private float speedAdd;
 
     void Start()
     {
@@ -22,17 +23,32 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (trigger)
-        {
+        // if (trigger)
+        // {
             velocity = new Vector2 (Input.GetAxis("Vertical"), Input.GetAxis ("Horizontal")).normalized;
             rb.velocity += new Vector3 ( bodyTr.forward.x * velocity.x + bodyTr.right.x * velocity.y, 
                                         bodyTr.forward.y * velocity.x + bodyTr.right.y * velocity.y, 
-                                        bodyTr.forward.z * velocity.x + bodyTr.right.z * velocity.y) * speed * Time.fixedDeltaTime;
-        }
+                                        bodyTr.forward.z * velocity.x + bodyTr.right.z * velocity.y) * (speed + speedAdd) * Time.fixedDeltaTime;
+        //}
         // if (rb.velocity.magnitude > 10)
         // {
         //     rb.velocity = rb.velocity.normalized * 10;
         // }
+    }
+    private void Update() 
+    {
+        if (Input.GetKeyDown (KeyCode.LeftShift))
+        {
+            speedAdd = 10;
+        }
+        else if (Input.GetKeyDown (KeyCode.LeftShift))
+        {
+            speedAdd = -5;
+        }
+        else if (Input.GetKeyUp (KeyCode.LeftShift) || Input.GetKeyUp (KeyCode.LeftShift))
+        {
+            speedAdd = 0;
+        }
     }
     private void OnTriggerEnter(Collider other) 
     {
