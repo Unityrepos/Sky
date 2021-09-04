@@ -30,7 +30,7 @@ public static class PerlinNoise3D
                 {
                     for (int k = 0; k < length; k++)
                     {
-                        vectors [i, j, k] = new Vector3 (Random.value, Random.value, Random.value);
+                        vectors [i, j, k] = new Vector3 (Random.value * 2 - 1, Random.value * 2 - 1, Random.value * 2 - 1);
                     }
                 }
             }
@@ -56,6 +56,6 @@ public static class PerlinNoise3D
         var sixth = Scalar (new Vector3 (positionL.x - Mathf.Floor(positionL.x), positionL.y - Mathf.Ceil(positionL.y), positionL.z - Mathf.Ceil(positionL.z)), vectors [((int)Mathf.Floor(positionL.x) % length + length) % length, ((int)Mathf.Ceil(positionL.y) % length + length) % length, ((int)Mathf.Ceil(positionL.z) % length + length) % length]);
         var seventh = Scalar (new Vector3 (positionL.x - Mathf.Ceil(positionL.x), positionL.y - Mathf.Floor(positionL.y), positionL.z - Mathf.Ceil(positionL.z)), vectors [((int)Mathf.Ceil(positionL.x) % length + length) % length, ((int)Mathf.Floor(positionL.y) % length + length) % length, ((int)Mathf.Ceil(positionL.z) % length + length) % length]);
         var eighth = Scalar (new Vector3 (positionL.x - Mathf.Ceil(positionL.x), positionL.y - Mathf.Ceil(positionL.y), positionL.z - Mathf.Ceil(positionL.z)), vectors [((int)Mathf.Ceil(positionL.x) % length + length) % length, ((int)Mathf.Ceil(positionL.y) % length + length) % length, ((int)Mathf.Ceil(positionL.z) % length + length) % length]);
-        return Terp (first, second, third, fourth, fifth, sixth, seventh, eighth, new Vector3 (((position.x % 1) + 1) % 1, ((position.y % 1) + 1) % 1, ((position.z % 1) + 1) % 1));
+        return (Terp (first, second, third, fourth, fifth, sixth, seventh, eighth, new Vector3 (((position.x % 1) + 1) % 1, ((position.y % 1) + 1) % 1, ((position.z % 1) + 1) % 1)) + 1) / 2;
     }
 }
