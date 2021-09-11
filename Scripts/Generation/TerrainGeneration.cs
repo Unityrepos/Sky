@@ -24,8 +24,8 @@ public class TerrainGeneration : MonoBehaviour
 
     void Start () 
     {
-        PerlinNoise3D.SeedGenerator (42);
-        PerlinNoise3D.NoiseGenerator (256);
+        MathU.SeedGenerator (42);
+        MathU.NoiseGenerator (256);
         mc = this.GetComponent <MeshCollider> ();
         tr = this.GetComponent <Transform> ();
         mesh = this.GetComponent <MeshFilter> ().mesh;

@@ -7,6 +7,6 @@ public class Test2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PerlinNoise.NoiseGenerator (256);
+        MathU.NoiseGenerator (256);
     } 
 }
