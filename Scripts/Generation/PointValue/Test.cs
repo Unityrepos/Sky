@@ -6,24 +6,36 @@ public class Test : MonoBehaviour
 {
     ChunkFabric i = new ChunkFabric ();
     Chunk[] j;
+    public float timing;
 
     void Start()
     {
         MathU.SeedGenerator (42);
         MathU.NoiseGenerator (256);
-        j = new Chunk[8];
-        for (int k = 0; k < 8; k++)
+        var e = 8;
+        j = new Chunk[e*e*e];
+        for (int k = 0; k < e; k++)
         {
-            j[k] = i.Create (new Vector3Int (k,0,0));
-            i.GeneratePoints (ref j[k], .1f);
+            for (int n = 0; n < e; n++)
+            {
+                for (int x = 0; x < e; x++)
+                {
+                    j[k*e*e + n*e + x] = i.Create (new Vector3Int (k,n,x));
+                    i.GeneratePoints (ref j[k*e*e + n*e + x], .1f);
+                }
+            }
         }
-        var l = new GameObject ("Test", typeof (MeshFilter), typeof (MeshRenderer));
-        i.GenerateMesh (ref j[0]);
-        l.GetComponent <MeshFilter>().mesh = j[0].TerrainMesh;
-    }
-
-    void Update()
-    {
         
+        MarchingCubesSmoothTriangles.Limit = .6f;
+        var l = new GameObject [e*e*e];
+        for (int c = 0; c < e*e*e; c++)
+        {
+            i.GenerateMesh (ref j[c]);
+            l[c] = new GameObject ("Test"+c.ToString(), typeof (MeshFilter), typeof (MeshRenderer), typeof (MeshCollider));
+            l[c].GetComponent <MeshFilter>().mesh = j[c].TerrainMesh;
+            l[c].GetComponent <MeshCollider>().sharedMesh = j[c].TerrainMesh;
+            l[c].GetComponent <MeshRenderer>().material = this.GetComponent <MeshRenderer>().material;
+            
+        }
     }
 }

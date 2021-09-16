@@ -8,5 +8,6 @@ public struct Chunk
     public static int Size;
     public static float PointSize;
     public Point[,,] Points;
+    public Block[,,] Blocks;
     public Mesh TerrainMesh;
 }
