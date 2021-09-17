@@ -8,10 +8,16 @@ public class Move : MonoBehaviour
     Transform bodyTr;
     Rigidbody rb;
     [SerializeField]
-    public float speed;
+    float speed;
     Vector2 velocity;
     bool trigger;
     private float speedAdd;
+    [SerializeField]
+    private AnimationCurve jumpCurve;
+    [SerializeField]
+    private int jumpFrames;
+    [SerializeField]
+    private float gravityForce;
 
     void Start()
     {
@@ -23,17 +29,10 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // if (trigger)
-        // {
-            velocity = new Vector2 (Input.GetAxis("Vertical"), Input.GetAxis ("Horizontal")).normalized;
-            rb.velocity += new Vector3 ( bodyTr.forward.x * velocity.x + bodyTr.right.x * velocity.y, 
-                                        bodyTr.forward.y * velocity.x + bodyTr.right.y * velocity.y, 
-                                        bodyTr.forward.z * velocity.x + bodyTr.right.z * velocity.y) * (speed + speedAdd) * Time.fixedDeltaTime;
-        //}
-        // if (rb.velocity.magnitude > 10)
-        // {
-        //     rb.velocity = rb.velocity.normalized * 10;
-        // }
+        velocity = new Vector2 (Input.GetAxis("Vertical"), Input.GetAxis ("Horizontal")).normalized;
+        rb.velocity += new Vector3 ( bodyTr.forward.x * velocity.x + bodyTr.right.x * velocity.y, 
+                                    bodyTr.forward.y * velocity.x + bodyTr.right.y * velocity.y + gravityForce, 
+                                    bodyTr.forward.z * velocity.x + bodyTr.right.z * velocity.y) * (speed + speedAdd) * Time.fixedDeltaTime;
     }
     private void Update() 
     {
@@ -48,6 +47,21 @@ public class Move : MonoBehaviour
         else if (Input.GetKeyUp (KeyCode.LeftShift) || Input.GetKeyUp (KeyCode.LeftShift))
         {
             speedAdd = 0;
+        }
+        if (Input.GetKeyDown (KeyCode.Space) && trigger)
+        {
+            StartCoroutine (Jump ());
+        }
+    }
+    private IEnumerator Jump ()
+    {
+        for (int i = 0; i < jumpFrames; i++)
+        {
+            yield return new WaitForFixedUpdate ();
+            if (Input.GetKey (KeyCode.Space))
+                rb.velocity += new Vector3 (0,jumpCurve.Evaluate (i*Time.fixedDeltaTime),0);
+            else
+                yield break;
         }
     }
     private void OnTriggerEnter(Collider other) 
