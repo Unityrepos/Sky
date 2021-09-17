@@ -60,35 +60,35 @@ public class ChunkFabric
         }
         i.Dispose();
     }
-    public JobHandle GenerateMeshInBlock (ref Chunk chunk)
-    {
-        ChunkMeshGenerationJob.BlockFabric = new BlockFabric ();
-        var n = new NativeArray<Chunk>(1, Allocator.Persistent);
-        var y = new ChunkMeshGenerationJob () {Chunks = n};
-        return y.Schedule (Chunk.Size * Chunk.Size * Chunk.Size, 0);
-    }
-    public void GenerateMeshFromBlock (ref Chunk chunk)
-    {
-        var l = new List<Vector3>();
-        for (int i = 0; i < Chunk.Size; i++)
-        {
-            for (int j = 0; j < Chunk.Size; j++)
-            {
-                for (int k = 0; k < Chunk.Size; k++)
-                {
-                    l.AddRange (chunk.Blocks[i,j,k].Vertices);
-                }
-            }
-        }
-        var r = l.ToArray ();
-        var t = new int [r.Length];
-        for (int u = 0; u < r.Length; u++)
-        {
-            t[u] = u;
-        }
-        chunk.TerrainMesh.vertices = r;
-        chunk.TerrainMesh.triangles = t;
-    }
+    // public JobHandle GenerateMeshInBlock (ref Chunk chunk)
+    // {
+    //     ChunkMeshGenerationJob.BlockFabric = new BlockFabric ();
+    //     var n = new NativeArray<Chunk>(1, Allocator.Persistent);
+    //     var y = new ChunkMeshGenerationJob () {Chunks = n};
+    //     return y.Schedule (Chunk.Size * Chunk.Size * Chunk.Size, 0);
+    // }
+    // public void GenerateMeshFromBlock (ref Chunk chunk)
+    // {
+    //     var l = new List<Vector3>();
+    //     for (int i = 0; i < Chunk.Size; i++)
+    //     {
+    //         for (int j = 0; j < Chunk.Size; j++)
+    //         {
+    //             for (int k = 0; k < Chunk.Size; k++)
+    //             {
+    //                 l.AddRange (chunk.Blocks[i,j,k].Vertices);
+    //             }
+    //         }
+    //     }
+    //     var r = l.ToArray ();
+    //     var t = new int [r.Length];
+    //     for (int u = 0; u < r.Length; u++)
+    //     {
+    //         t[u] = u;
+    //     }
+    //     chunk.TerrainMesh.vertices = r;
+    //     chunk.TerrainMesh.triangles = t;
+    // }
     // public void GenerateMesh (ref Chunk chunk)
     // {
     //     GenerateMeshInBlock (ref chunk).Complete();
@@ -109,12 +109,15 @@ public class ChunkFabric
             }
         }
         var r = l.ToArray ();
+        //var h = new Vector2 [r.Length];
         var t = new int [r.Length];
         for (int u = 0; u < r.Length; u++)
         {
+            //h[u] = new Vector2 (r[u].x, r[u].z);
             t[u] = u;
         }
         chunk.TerrainMesh.vertices = r;
         chunk.TerrainMesh.triangles = t;
+        //chunk.TerrainMesh.uv = h;
     }
 }
