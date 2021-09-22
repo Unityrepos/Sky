@@ -16,6 +16,7 @@ public class ChunkRadiusSpawn : MonoBehaviour
     private float chunkReloadTime;
     [SerializeField]
     private Material terrainMaterial;
+    private Chunks chunks = new Chunks ();
 
     private void Start() 
     {
@@ -55,21 +56,32 @@ public class ChunkRadiusSpawn : MonoBehaviour
                     {
                         for (int k = 0; k < chunkSpawnRadius * 2; k++)
                         {
-                            var l = new Stopwatch ();
-                            chunk = chunkFabric.Create (new Vector3Int (playerPosition.x-chunkSpawnRadius+i, playerPosition.y-chunkSpawnRadius+j, playerPosition.z-chunkSpawnRadius+k));
-                            l.Start ();
-                            chunkFabric.GeneratePoints (ref chunk, .03f);
-                            l.Stop();
-                            UnityEngine.Debug.Log (l.ElapsedMilliseconds.ToString ());
-                            l.Start ();
-                            chunkFabric.GenerateMesh (ref chunk);
-                            l.Stop();
-                            UnityEngine.Debug.Log (l.ElapsedMilliseconds.ToString ());
+                            if (!chunks.Contains(new Vector3Int (playerPosition.x-chunkSpawnRadius+i, playerPosition.y-chunkSpawnRadius+j, playerPosition.z-chunkSpawnRadius+k)))
+                            {
+                                // var l = new Stopwatch ();
+                                chunk = chunkFabric.Create (new Vector3Int (playerPosition.x-chunkSpawnRadius+i, playerPosition.y-chunkSpawnRadius+j, playerPosition.z-chunkSpawnRadius+k));
+                                // l.Start ();
+                                chunkFabric.GeneratePoints (ref chunk, .03f);
+                                // l.Stop();
+                                //UnityEngine.Debug.Log (l.ElapsedMilliseconds.ToString ());
+                                // l.Start ();
+                                if (!chunk.IsEmpty)
+                                {
+                                    chunkFabric.GenerateMesh (ref chunk);
+                                    yield return new WaitForEndOfFrame ();
+                                }
+                                chunks.AddChunk (new Vector3Int (playerPosition.x-chunkSpawnRadius+i, playerPosition.y-chunkSpawnRadius+j, playerPosition.z-chunkSpawnRadius+k), chunk);
+                            }
+                            else
+                            {
+                                chunks.Chunk (new Vector3Int (playerPosition.x-chunkSpawnRadius+i, playerPosition.y-chunkSpawnRadius+j, playerPosition.z-chunkSpawnRadius+k), ref chunk);
+                            }
+                            // l.Stop();
+                            //UnityEngine.Debug.Log (l.ElapsedMilliseconds.ToString ());
                             ter[i,j,k].GetComponent<MeshFilter>().mesh = chunk.TerrainMesh;
                             ter[i,j,k].GetComponent<MeshFilter>().mesh.RecalculateBounds ();
                             ter[i,j,k].GetComponent<MeshFilter>().mesh.RecalculateNormals ();
                             ter[i,j,k].GetComponent<MeshCollider>().sharedMesh = chunk.TerrainMesh;
-                            yield return new WaitForEndOfFrame ();
                         }
                     }
                 }

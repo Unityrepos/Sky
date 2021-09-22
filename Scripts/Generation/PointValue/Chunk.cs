@@ -10,4 +10,5 @@ public struct Chunk
     public Point[,,] Points;
     public Block[,,] Blocks;
     public Mesh TerrainMesh;
+    public bool IsEmpty;
 }
