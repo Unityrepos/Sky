@@ -11,7 +11,7 @@ public class Move : MonoBehaviour
     float speed;
     Vector2 velocity;
     bool trigger;
-    private float speedAdd;
+    private float speedAdd = 1;
     [SerializeField]
     private AnimationCurve jumpCurve;
     [SerializeField]
@@ -32,21 +32,21 @@ public class Move : MonoBehaviour
         velocity = new Vector2 (Input.GetAxis("Vertical"), Input.GetAxis ("Horizontal")).normalized;
         rb.velocity += new Vector3 ( bodyTr.forward.x * velocity.x + bodyTr.right.x * velocity.y, 
                                     bodyTr.forward.y * velocity.x + bodyTr.right.y * velocity.y + gravityForce, 
-                                    bodyTr.forward.z * velocity.x + bodyTr.right.z * velocity.y) * (speed + speedAdd) * Time.fixedDeltaTime;
+                                    bodyTr.forward.z * velocity.x + bodyTr.right.z * velocity.y) * (speed * speedAdd) * Time.fixedDeltaTime;
     }
     private void Update() 
     {
         if (Input.GetKeyDown (KeyCode.LeftShift))
         {
-            speedAdd = 10;
+            speedAdd = 2f;
         }
-        else if (Input.GetKeyDown (KeyCode.LeftShift))
+        else if (Input.GetKeyDown (KeyCode.LeftControl))
         {
-            speedAdd = -5;
+            speedAdd = .5f;
         }
-        else if (Input.GetKeyUp (KeyCode.LeftShift) || Input.GetKeyUp (KeyCode.LeftShift))
+        else if (Input.GetKeyUp (KeyCode.LeftShift) || Input.GetKeyUp (KeyCode.LeftControl))
         {
-            speedAdd = 0;
+            speedAdd = 1;
         }
         if (Input.GetKeyDown (KeyCode.Space) && trigger)
         {

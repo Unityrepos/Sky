@@ -10,5 +10,16 @@ public struct Chunk
     public Point[,,] Points;
     public Block[,,] Blocks;
     public Mesh TerrainMesh;
-    public bool IsEmpty;
+    public bool IsEmpty
+    {
+        get
+        {
+            foreach (var j in Points)
+            {
+                if (j.Value != 0)
+                    return false;
+            }
+            return true;
+        }
+    }
 }

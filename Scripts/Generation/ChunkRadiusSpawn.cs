@@ -58,12 +58,8 @@ public class ChunkRadiusSpawn : MonoBehaviour
                         {
                             if (!chunks.Contains(new Vector3Int (playerPosition.x-chunkSpawnRadius+i, playerPosition.y-chunkSpawnRadius+j, playerPosition.z-chunkSpawnRadius+k)))
                             {
-                                // var l = new Stopwatch ();
                                 chunk = chunkFabric.Create (new Vector3Int (playerPosition.x-chunkSpawnRadius+i, playerPosition.y-chunkSpawnRadius+j, playerPosition.z-chunkSpawnRadius+k));
-                                // l.Start ();
-                                chunkFabric.GeneratePoints (ref chunk, .03f);
-                                // l.Stop();
-                                //UnityEngine.Debug.Log (l.ElapsedMilliseconds.ToString ());
+                                chunkFabric.GeneratePoints (ref chunk, .005f);
                                 // l.Start ();
                                 if (!chunk.IsEmpty)
                                 {
@@ -78,10 +74,14 @@ public class ChunkRadiusSpawn : MonoBehaviour
                             }
                             // l.Stop();
                             //UnityEngine.Debug.Log (l.ElapsedMilliseconds.ToString ());
+                                var l = new Stopwatch ();
+                                l.Start ();
                             ter[i,j,k].GetComponent<MeshFilter>().mesh = chunk.TerrainMesh;
                             ter[i,j,k].GetComponent<MeshFilter>().mesh.RecalculateBounds ();
                             ter[i,j,k].GetComponent<MeshFilter>().mesh.RecalculateNormals ();
                             ter[i,j,k].GetComponent<MeshCollider>().sharedMesh = chunk.TerrainMesh;
+                                l.Stop();
+                                UnityEngine.Debug.Log (l.ElapsedMilliseconds.ToString ());
                         }
                     }
                 }

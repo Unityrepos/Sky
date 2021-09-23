@@ -21,7 +21,7 @@ public class PointFabric
             y += 1 / Mathf.Pow (2, u);
         }
         i /= y;
-        i *= 32;
+        i *= 128;
         i -= point.y;
         return i;
     }

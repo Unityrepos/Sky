@@ -87,9 +87,9 @@ MonoBehaviour:
     supportTransparentBackface: 1
     supportTransparentDepthPrepass: 1
     supportTransparentDepthPostpass: 1
-    colorBufferFormat: 74
+    colorBufferFormat: 48
     supportCustomPass: 1
-    customBufferFormat: 12
+    customBufferFormat: 48
     supportedLitShaderMode: 2
     planarReflectionResolution:
       m_Values: 000100000004000000080000
@@ -302,8 +302,8 @@ MonoBehaviour:
   m_DefaultMaterialQualityLevel: 4
   diffusionProfileSettings: {fileID: 0}
   diffusionProfileSettingsList:
-  - {fileID: 11400000, guid: a95674e2abbdd3840bba0f5799632a3a, type: 2}
-  - {fileID: 11400000, guid: 18f02f26fc8638349b72ab3292eeeff9, type: 2}
+  - {fileID: 11400000, guid: 0830b780fe8cc3248813c6a2b699510a, type: 2}
+  - {fileID: 11400000, guid: c1aa922f7c715d24b8dad072b174e2ba, type: 2}
   beforeTransparentCustomPostProcesses: []
   beforeTAACustomPostProcesses: []
   beforePostProcessCustomPostProcesses: []
