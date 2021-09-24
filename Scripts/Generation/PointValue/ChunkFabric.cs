@@ -39,7 +39,7 @@ public class ChunkFabric
         {
             Scale = scale;
         }
-        var i = new NativeArray <Point> ((Chunk.Size+1)*(Chunk.Size+1)*(Chunk.Size+1), Allocator.Persistent);
+        var i = new NativeArray <Point> ((Chunk.Size+1)*(Chunk.Size+1)*(Chunk.Size+1), Allocator.TempJob);
         var j = new ChunkPointsGenerationJob ()
         {
             Position = chunk.Position,
@@ -96,7 +96,7 @@ public class ChunkFabric
     // }
     public void GenerateMesh (ref Chunk chunk)
     {
-        var l = new List<Vector3>();
+        var verticesList = new List<Vector3>();
         for (int i = 0; i < Chunk.Size; i++)
         {
             for (int j = 0; j < Chunk.Size; j++)
@@ -104,20 +104,18 @@ public class ChunkFabric
                 for (int k = 0; k < Chunk.Size; k++)
                 {
                     blockFabric.GenerateMeshValue (ref chunk,i,j,k);
-                    l.AddRange (chunk.Blocks[i,j,k].Vertices);
+                    verticesList.AddRange (chunk.Blocks[i,j,k].Vertices);
                 }
             }
         }
-        var r = l.ToArray ();
-        //var h = new Vector2 [r.Length];
-        var t = new int [r.Length];
-        for (int u = 0; u < r.Length; u++)
+        chunk.TerrainMesh.vertices = verticesList.ToArray ();
+        var vetircesListLength = chunk.TerrainMesh.vertices.Length;
+        var trianglesList = new int [vetircesListLength];
+        for (int u = 0; u < vetircesListLength; u++)
         {
-            //h[u] = new Vector2 (r[u].x, r[u].z);
-            t[u] = u;
+            trianglesList[u] = u;
         }
-        chunk.TerrainMesh.vertices = r;
-        chunk.TerrainMesh.triangles = t;
+        chunk.TerrainMesh.triangles = trianglesList;
         //chunk.TerrainMesh.uv = h;
     }
 }

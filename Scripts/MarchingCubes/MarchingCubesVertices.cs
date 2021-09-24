@@ -266,6 +266,16 @@ public class MarchingCubesVertices
 
     public void Triangulate (bool[] corners, out Vector3[] outputVertices)
     {
+        var isEmpty = 0;
+        for (int i = 0; i < 8; i++)
+        {
+            isEmpty += Convert.ToInt32 (corners [i]);
+        }
+        if (isEmpty == 0 || isEmpty == 8)
+        {
+            outputVertices = new Vector3 [0];
+            return;
+        }
         var index = CornersToInt(corners);
         var arraySize = 0;
         for (int i = 0; i < 16; i++)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MarchingCubesSmoothVertices : MarchingCubesVertices
 {
@@ -14,6 +15,16 @@ public class MarchingCubesSmoothVertices : MarchingCubesVertices
         for (int i = 0; i < isCorners.Length; i++)
         {
             isCorners[i] = corners[i] > limit;
+        }
+        var isEmpty = 0;
+        for (int i = 0; i < 8; i++)
+        {
+            isEmpty += Convert.ToInt32 (isCorners [i]);
+        }
+        if (isEmpty == 0 || isEmpty == 8)
+        {
+            outputVertices = new Vector3 [0];
+            return;
         }
         var index = CornersToInt(isCorners);
         var arraySize = 0;

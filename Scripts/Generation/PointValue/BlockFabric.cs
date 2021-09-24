@@ -26,10 +26,10 @@ public class BlockFabric
         i[5] = chunk.Points[x+1,y+1,  z].   Value;
         i[6] = chunk.Points[x+1,y+1,z+1].   Value;
         i[7] = chunk.Points[x,  y+1,z+1].   Value;
-        var f = new Vector3[0];
+        //var f = new Vector3[0];
         var g = new int[0];
-        marchingCubes.Triangulate (i, out f, out g);
-        chunk.Blocks[x,y,z].Vertices = f;
+        marchingCubes.Triangulate (i, out chunk.Blocks[x,y,z].Vertices, out g);//out f, out g);
+        //chunk.Blocks[x,y,z].Vertices = f;
         for (int l = 0; l < chunk.Blocks[x,y,z].Vertices.Length; l++)
         {
             chunk.Blocks[x,y,z].Vertices[l] += chunk.Blocks[x,y,z].Position;

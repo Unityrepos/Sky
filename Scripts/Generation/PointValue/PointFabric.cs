@@ -8,7 +8,7 @@ public class PointFabric
     {
         var i = new Point ();
         i.Position = position;
-        i.Value = GenerateValue (position, scale, 10);//().Perlin ();
+        i.Value = GenerateValue (position, scale, 7);//().Perlin ();
         return i;
     }
     private float GenerateValue (Vector3 point, float scale, int octaves)
@@ -23,6 +23,6 @@ public class PointFabric
         i /= y;
         i *= 128;
         i -= point.y;
-        return i;
+        return Mathf.Clamp (i, 0, 1);
     }
 }
