@@ -19,11 +19,23 @@ public static partial class MathU
     }
     public static float Perlin (this Vector2 position)
     {
-        var positionL = new Vector2 ((position.x + length) % length, (position.y + length) % length);
-        var first = Scalar (new Vector2 (positionL.x - Mathf.Floor(positionL.x), positionL.y - Mathf.Floor(positionL.y)), new Vector2 (vectors [((int)Mathf.Floor(positionL.x) % length + length) % length, ((int)Mathf.Floor(positionL.y) % length + length) % length, 0].x, vectors [((int)Mathf.Floor(positionL.x) % length + length) % length, ((int)Mathf.Floor(positionL.y) % length + length) % length, 0].y));
-        var second = Scalar (new Vector2 (positionL.x - Mathf.Floor(positionL.x), positionL.y - Mathf.Ceil(positionL.y)), new Vector2 (vectors [((int)Mathf.Floor(positionL.x) % length + length) % length, ((int)Mathf.Ceil(positionL.y) % length + length) % length, 0].x, vectors [((int)Mathf.Floor(positionL.x) % length + length) % length, ((int)Mathf.Ceil(positionL.y) % length + length) % length, 0].y));
-        var third = Scalar (new Vector2 (positionL.x - Mathf.Ceil(positionL.x), positionL.y - Mathf.Floor(positionL.y)), new Vector2 (vectors [((int)Mathf.Ceil(positionL.x) % length + length) % length, ((int)Mathf.Floor(positionL.y) % length + length) % length, 0].x, vectors [((int)Mathf.Ceil(positionL.x) % length + length) % length, ((int)Mathf.Floor(positionL.y) % length + length) % length, 0].y));
-        var fourth = Scalar (new Vector2 (positionL.x - Mathf.Ceil(positionL.x), positionL.y - Mathf.Ceil(positionL.y)), new Vector2 (vectors [((int)Mathf.Ceil(positionL.x) % length + length) % length, ((int)Mathf.Ceil(positionL.y) % length + length) % length, 0].x, vectors [((int)Mathf.Ceil(positionL.x) % length + length) % length, ((int)Mathf.Ceil(positionL.y) % length + length) % length, 0].y));
-        return BerpSmooth (first, second, third, fourth, new Vector2 (((position.x % 1) + 1) % 1, ((position.y % 1) + 1) % 1));
+        var positionL = new Vector2 (Border(position.x), Border(position.y)).normalized;
+        var first = Scalar (new Vector2 (   positionL.x - Mathf.Floor(positionL.x), 
+                                            positionL.y - Mathf.Floor(positionL.y)), 
+        new Vector2 (   vectors [((int)Border(Mathf.Floor(positionL.x))), ((int)Border(Mathf.Floor(positionL.y))), 0].x, 
+                        vectors [((int)Border(Mathf.Floor(positionL.x))), ((int)Border(Mathf.Floor(positionL.x))), 0].y));
+        var second = Scalar (new Vector2 (  positionL.x - Mathf.Floor(positionL.x), 
+                                            positionL.y - Mathf.Ceil(positionL.y)), 
+        new Vector2 (   vectors [((int)Border(Mathf.Floor(positionL.x))), ((int)Border(Mathf.Ceil(positionL.x))), 0].x, 
+                        vectors [((int)Border(Mathf.Floor(positionL.x))), ((int)Border(Mathf.Ceil(positionL.x))), 0].y));
+        var third = Scalar (new Vector2 (   positionL.x - Mathf.Ceil(positionL.x), 
+                                            positionL.y - Mathf.Floor(positionL.y)), 
+        new Vector2 (   vectors [((int)Border(Mathf.Ceil(positionL.x))), ((int)Border(Mathf.Floor(positionL.x))), 0].x, 
+                        vectors [((int)Border(Mathf.Ceil(positionL.x))), ((int)Border(Mathf.Floor(positionL.x))), 0].y));
+        var fourth = Scalar (new Vector2 (  positionL.x - Mathf.Ceil(positionL.x), 
+                                            positionL.y - Mathf.Ceil(positionL.y)), 
+        new Vector2 (   vectors [((int)Border(Mathf.Ceil(positionL.x))), ((int)Border(Mathf.Ceil(positionL.x))), 0].x, 
+                        vectors [((int)Border(Mathf.Ceil(positionL.x))), ((int)Border(Mathf.Ceil(positionL.x))), 0].y));
+        return BerpSmooth (first, second, third, fourth, new Vector2 (Border(position.x, 1), Border(position.y, 1)));
     }
 }

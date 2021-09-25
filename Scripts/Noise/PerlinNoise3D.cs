@@ -14,7 +14,7 @@ public static partial class MathU
         if (!haveSeed)
         {
             haveSeed = true;
-            Random.seed = seed;
+            Random.InitState (seed);
         }
     }
     public static void NoiseGenerator (int length)
@@ -30,7 +30,7 @@ public static partial class MathU
                 {
                     for (int k = 0; k < length; k++)
                     {
-                        vectors [i, j, k] = new Vector3 (Random.value * 2 - 1, Random.value * 2 - 1, Random.value * 2 - 1);
+                        vectors [i, j, k] = Random.onUnitSphere;
                     }
                 }
             }

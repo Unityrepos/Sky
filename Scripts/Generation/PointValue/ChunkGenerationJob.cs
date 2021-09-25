@@ -18,17 +18,3 @@ public struct ChunkPointsGenerationJob : IJobParallelFor
                                                     (i % (Chunk.Size + 1))) * Chunk.PointSize + Position * (Chunk.Size) * Chunk.PointSize, Scale);
     }
 }
-
-public struct ChunkMeshGenerationJob : IJobParallelFor
-{
-    public NativeArray<Chunk> Chunks;
-    public static BlockFabric BlockFabric;
-    
-    public void Execute (int i)
-    {
-        var l = new Vector3 ((i-((((i)-i % (Chunk.Size))/(Chunk.Size))%(Chunk.Size)))/(Chunk.Size)/(Chunk.Size), 
-                            (((i)-i % (Chunk.Size))/(Chunk.Size))%(Chunk.Size), 
-                            (i % (Chunk.Size)));
-        Chunks[0] = BlockFabric.GenerateMeshValue (Chunks[0], (int)l.x, (int)l.y, (int)l.z);
-    }
-}
