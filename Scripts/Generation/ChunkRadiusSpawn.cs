@@ -23,6 +23,7 @@ public class ChunkRadiusSpawn : MonoBehaviour
     {
         MathU.SeedGenerator (42);
         MathU.NoiseGenerator (256);
+        PointFabric.BiomeSize = 1;
         player = this.transform;
         chunk = new Chunk();
         ter = new GameObject[chunkSpawnRadius * 2, chunkSpawnRadius * 2, chunkSpawnRadius * 2];

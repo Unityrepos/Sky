@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PointFabric
 {
+    static public float BiomeSize = 1;
     public Point Create (Vector3 position, float scale)
     {
         var i = new Point ();
@@ -15,15 +16,17 @@ public class PointFabric
     {
         float i = 0;
         float y = 0;
-        var n = Vector2.one / 1000;
-        for (int u = 0; u < octaves; u++)
+        // var n = Vector2.one / 1000;
+        var biomeNoise = MathU.EndSmooth (Mathf.PerlinNoise ((point.x + .01f) * scale * BiomeSize, (point.z+ .01f) * scale * BiomeSize));
+        var octaveNoise = MathU.EndSmooth (Mathf.PerlinNoise ((point.x + 1000.01f) * scale * BiomeSize, (point.z+ 1000.01f) * scale * BiomeSize));
+        octaveNoise = octaveNoise < biomeNoise ? biomeNoise : octaveNoise;
+        for (int u = 0; u < (octaveNoise) * (octaves); u++)
         {
             i += Mathf.PerlinNoise ((point.x + .01f) * scale * Mathf.Pow (2, u), (point.z+ .01f) * scale * Mathf.Pow (2, u)) / Mathf.Pow (2, u);
-            //i += ((new Vector2 (point.x, point.z) + n) * scale * Mathf.Pow (2, u)).Perlin () / Mathf.Pow (2, u);
             y += 1 / Mathf.Pow (2, u);
         }
         i /= y;
-        i *= 128;
+        i *= 128 * biomeNoise;
         i -= point.y;
         return Mathf.Clamp (i, 0, 1);
     }

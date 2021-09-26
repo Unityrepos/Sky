@@ -65,11 +65,11 @@ public class ChunkFabric
         chunk.TerrainMesh.vertices = verticesList.ToArray ();
         var vetircesListLength = chunk.TerrainMesh.vertices.Length;
         var trianglesList = new int [vetircesListLength];
+        chunk.TerrainMesh.uv = new Vector2[vetircesListLength];
         for (int u = 0; u < vetircesListLength; u++)
         {
             trianglesList[u] = u;
         }
         chunk.TerrainMesh.triangles = trianglesList;
-        //chunk.TerrainMesh.uv = h;
     }
 }

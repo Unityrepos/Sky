@@ -17,6 +17,10 @@ public static partial class MathU
     {
         return a.x * b.x + a.y * b.y;
     }
+    public static float EndSmooth (float t)
+    {
+        return ((3 * Mathf.Pow (t, 14/8)) - 2 * (Mathf.Pow (t, 21/8)));
+    }
     public static float Perlin (this Vector2 position)
     {
         var positionL = new Vector2 (Border(position.x), Border(position.y)).normalized;
