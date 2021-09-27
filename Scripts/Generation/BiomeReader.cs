@@ -4,27 +4,23 @@ using UnityEngine;
 
 public class BiomeReader : MonoBehaviour
 {
-    public Color material;
-    public Color mTwo;
-    public Material materia;
+    [SerializeField]
+    private Material material;
+    [SerializeField]
+    private Gradient gradient;
 
     void Start()
     {
-    }
-    private void Update() 
-    {
-        if (Input.GetKeyDown (KeyCode.L))
-        {
             StartCoroutine(Read());
-        }
     }
 
     IEnumerator Read()
     {
-        mTwo = materia.color;
-        for (int i = 1; i < 31; i++)
+        while (true)
         {
-            materia.color = (Color.Lerp (mTwo, material, (float)i/30));
+            material.color = gradient.Evaluate (Mathf.PerlinNoise ((transform.position.x + .01f) * PointFabric.BiomeSize, (transform.position.z+ .01f) * PointFabric.BiomeSize));
+            Debug.Log (Mathf.PerlinNoise ((transform.position.x + .01f) * PointFabric.BiomeSize, (transform.position.z+ .01f) * PointFabric.BiomeSize));
+            yield return new WaitForFixedUpdate ();
             yield return new WaitForFixedUpdate ();
         }
     }

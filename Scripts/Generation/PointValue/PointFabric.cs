@@ -17,8 +17,8 @@ public class PointFabric
         float i = 0;
         float y = 0;
         // var n = Vector2.one / 1000;
-        var biomeNoise = MathU.EndSmooth (Mathf.PerlinNoise ((point.x + .01f) * scale * BiomeSize, (point.z+ .01f) * scale * BiomeSize));
-        var octaveNoise = MathU.EndSmooth (Mathf.PerlinNoise ((point.x + 1000.01f) * scale * BiomeSize, (point.z+ 1000.01f) * scale * BiomeSize));
+        var biomeNoise = Mathf.PerlinNoise ((point.x + .01f) * BiomeSize, (point.z+ .01f) * BiomeSize);
+        var octaveNoise = Mathf.PerlinNoise ((point.x + 1000.01f) * BiomeSize, (point.z+ 1000.01f) * BiomeSize);
         octaveNoise = octaveNoise < biomeNoise ? biomeNoise : octaveNoise;
         for (int u = 0; u < (octaveNoise) * (octaves); u++)
         {

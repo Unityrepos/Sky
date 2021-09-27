@@ -23,7 +23,7 @@ public class ChunkRadiusSpawn : MonoBehaviour
     {
         MathU.SeedGenerator (42);
         MathU.NoiseGenerator (256);
-        PointFabric.BiomeSize = 1;
+        PointFabric.BiomeSize = .005f;
         player = this.transform;
         chunk = new Chunk();
         ter = new GameObject[chunkSpawnRadius * 2, chunkSpawnRadius * 2, chunkSpawnRadius * 2];
@@ -64,8 +64,8 @@ public class ChunkRadiusSpawn : MonoBehaviour
                         {
                             if (!chunks.Contains(new Vector3Int(playerPosition.x - chunkSpawnRadius + i, playerPosition.y - chunkSpawnRadius + j, playerPosition.z - chunkSpawnRadius + k)))
                             {
-                                var l = new Stopwatch();
-                                l.Start();
+                                //var l = new Stopwatch();
+                                //l.Start();
                                 chunk = chunkFabric.Create(new Vector3Int(playerPosition.x - chunkSpawnRadius + i, playerPosition.y - chunkSpawnRadius + j, playerPosition.z - chunkSpawnRadius + k));
                                 chunkFabric.GeneratePoints(ref chunk, .005f);
                                 if (!chunk.IsEmpty)
@@ -74,8 +74,8 @@ public class ChunkRadiusSpawn : MonoBehaviour
                                     yield return new WaitForEndOfFrame();
                                 }
                                 chunks.AddChunk(new Vector3Int(playerPosition.x - chunkSpawnRadius + i, playerPosition.y - chunkSpawnRadius + j, playerPosition.z - chunkSpawnRadius + k), chunk);
-                                l.Stop();
-                                UnityEngine.Debug.Log(l.ElapsedMilliseconds.ToString());
+                                //l.Stop();
+                                //UnityEngine.Debug.Log(l.ElapsedMilliseconds.ToString());
                             }
                             else
                             {
