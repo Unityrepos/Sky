@@ -343,7 +343,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &755066989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,6 +770,7 @@ GameObject:
   - component: {fileID: 861918747}
   - component: {fileID: 861918744}
   - component: {fileID: 861918749}
+  - component: {fileID: 861918746}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -805,9 +806,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1327606ba63e15e44a45e3a757f158e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkSpawnRadius: 2
+  chunkSpawnRadius: 3
   chunkReloadTime: 0.1
-  terrainMaterial: {fileID: 2100000, guid: a9007ca6f218d864eb3587a7fa4a8b92, type: 2}
+  terrainMaterial: {fileID: 2100000, guid: 95a6baf3586d27641b94c461c0f40755, type: 2}
 --- !u!136 &861918745
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -822,6 +823,48 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &861918746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861918742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2771d620da5e24d4db6946794e70c9e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 95a6baf3586d27641b94c461c0f40755, type: 2}
+  gradient:
+    serializedVersion: 2
+    key0: {r: 0.78970444, g: 0.8018868, b: 0.26099145, a: 1}
+    key1: {r: 0.6091939, g: 0.75013286, b: 0.20238945, a: 1}
+    key2: {r: 0, g: 0.5754717, b: 0.00461716, a: 0}
+    key3: {r: 0.08341958, g: 0.4433962, b: 0, a: 0}
+    key4: {r: 0.37720805, g: 0.5566038, b: 0.18640977, a: 0}
+    key5: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 0}
+    key6: {r: 0.066037714, g: 0.066037714, b: 0.066037714, a: 0}
+    key7: {r: 1, g: 1, b: 1, a: 0}
+    ctime0: 16577
+    ctime1: 18504
+    ctime2: 20624
+    ctime3: 24287
+    ctime4: 32189
+    ctime5: 36815
+    ctime6: 49730
+    ctime7: 52621
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
 --- !u!114 &861918747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,7 +930,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861918742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 53.69, y: 80, z: 64}
+  m_LocalPosition: {x: 53.69, y: 128, z: 64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1175365837}
@@ -1462,7 +1505,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1867381186
 MonoBehaviour:
   m_ObjectHideFlags: 0
